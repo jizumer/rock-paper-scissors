@@ -70,4 +70,20 @@ public class Totals {
         this.draws = draws;
     }
 
+    public void addTotalRounds(int i) {
+        this.totalRounds += 1;
+    }
+
+    public void addPlayerOneWins(int i) {
+        this.playerOneWins += 1;
+    }
+
+    public void addPlayerTwoWins(int i) {
+        this.playerTwoWins += 1;
+    }
+
+    public void addDraws(int i) {
+        this.draws += 1;
+    }
+
 }

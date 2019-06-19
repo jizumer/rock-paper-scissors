@@ -1,6 +1,7 @@
 package rock.paper.scissors.business.entity;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Round implements Serializable {
 
@@ -9,10 +10,12 @@ public class Round implements Serializable {
     private Move player2Move;
     private Result result;
 
-    public Round(Move p1, Move p2, Result result) {
+    public Round(final Move p1, final Move p2,
+            final Result result, final String userId) {
         this.player1Move = p1;
         this.player2Move = p2;
         this.result = result;
+        this.userId = userId;
 
     }
 
@@ -72,4 +75,40 @@ public class Round implements Serializable {
         this.userId = userId;
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 67 * hash + Objects.hashCode(this.getUserId());
+        hash = 67 * hash + Objects.hashCode(this.getPlayer1Move());
+        hash = 67 * hash + Objects.hashCode(this.getPlayer2Move());
+        hash = 67 * hash + Objects.hashCode(this.getResult());
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Round other = (Round) obj;
+        if (!Objects.equals(this.getUserId(), other.getUserId())) {
+            return false;
+        }
+        if (this.getPlayer1Move() != other.getPlayer1Move()) {
+            return false;
+        }
+        if (this.getPlayer2Move() != other.getPlayer2Move()) {
+            return false;
+        }
+        if (this.getResult() != other.getResult()) {
+            return false;
+        }
+        return true;
+    }
 }
