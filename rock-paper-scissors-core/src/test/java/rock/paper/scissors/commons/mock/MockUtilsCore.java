@@ -1,7 +1,11 @@
 package rock.paper.scissors.commons.mock;
 
 import org.mockito.Mockito;
+import static org.mockito.Mockito.when;
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.stubbing.Answer;
 import rock.paper.scissors.business.control.RoundRepository;
+import rock.paper.scissors.business.entity.Round;
 
 /**
  *
@@ -14,6 +18,20 @@ public class MockUtilsCore {
 
     public static RoundRepository roundRepository() {
         RoundRepository result = Mockito.mock(RoundRepository.class);
+        when(result.create(Mockito.any())).thenAnswer(new Answer<Round>() {
+            @Override
+            public Round answer(InvocationOnMock invocation) throws Throwable {
+                Object[] args = invocation.getArguments();
+                return (Round) args[0];
+            }
+
+        });
+
+        return result;
+    }
+
+    public static Round round() {
+        Round result = Mockito.mock(Round.class);
         return result;
     }
 
