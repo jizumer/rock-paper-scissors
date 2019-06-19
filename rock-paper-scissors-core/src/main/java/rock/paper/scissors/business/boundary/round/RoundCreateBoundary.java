@@ -2,6 +2,6 @@ package rock.paper.scissors.business.boundary.round;
 
 public interface RoundCreateBoundary<R> {
 
-    R create(R round);
+    R create(String userId);
 
 }

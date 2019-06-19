@@ -6,7 +6,7 @@ import javax.inject.Named;
 import javax.inject.Singleton;
 import rock.paper.scissors.business.boundary.round.RoundGetBoundary;
 import rock.paper.scissors.business.boundary.round.RoundGetBoundaryImpl;
-import rock.paper.scissors.business.control.RoundRepository;
+import rock.paper.scissors.business.control.RoundControl;
 import rock.paper.scissors.business.entity.Round;
 
 @Singleton
@@ -15,8 +15,8 @@ public class RoundGetBoundaryCDI extends RoundGetBoundaryImpl
         implements RoundGetBoundary<List<Round>> {
 
     @Inject
-    public RoundGetBoundaryCDI(final RoundRepository repository) {
-        super(repository);
+    public RoundGetBoundaryCDI(final RoundControl control) {
+        super(control);
     }
 
 }

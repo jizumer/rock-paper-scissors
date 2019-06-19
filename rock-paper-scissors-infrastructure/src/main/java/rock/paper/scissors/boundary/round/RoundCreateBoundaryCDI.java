@@ -8,7 +8,6 @@ import rock.paper.scissors.business.boundary.round.RoundCreateBoundaryImpl;
 import rock.paper.scissors.business.control.RoundControl;
 import rock.paper.scissors.business.entity.Round;
 
-
 @Singleton
 @Named("round-create-infrastructure")
 public class RoundCreateBoundaryCDI extends RoundCreateBoundaryImpl
@@ -20,8 +19,8 @@ public class RoundCreateBoundaryCDI extends RoundCreateBoundaryImpl
     }
 
     @Override
-    public Round create(final Round round) {
-        return super.create(round);
+    public Round create(final String userId) {
+        return super.create(userId);
     }
 
 }

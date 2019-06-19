@@ -8,13 +8,13 @@ public class RoundCreateBoundaryImpl
 
     private RoundControl roundControl;
 
-    public RoundCreateBoundaryImpl(final RoundControl intervencionContr) {
-        roundControl = intervencionContr;
+    public RoundCreateBoundaryImpl(final RoundControl roundContr) {
+        roundControl = roundContr;
     }
 
     @Override
-    public Round create(final Round round) {
-        return roundControl.create(round);
+    public Round create(final String userId) {
+        return roundControl.create(userId);
     }
 
 }

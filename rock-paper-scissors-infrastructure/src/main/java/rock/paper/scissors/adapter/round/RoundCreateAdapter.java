@@ -11,8 +11,10 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import rock.paper.scissors.business.boundary.round.RoundCreateBoundary;
 import rock.paper.scissors.business.entity.Round;
+import rock.paper.scissors.config.RestConfiguration;
 
 @RequestScoped
+@Path(value = RestConfiguration.PATH_VERSION)
 public class RoundCreateAdapter {
 
     RoundCreateBoundary<Round> roundBoundary;
@@ -32,14 +34,14 @@ public class RoundCreateAdapter {
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
     @POST
-    public Round create(@PathParam("userId") final String userId, final Round inputRound) {
+    public Round create(@PathParam("userId") final String userId) {
         // Validations
-        validate(userId, inputRound);
+        validate(userId);
 
-        return roundBoundary.create(inputRound);
+        return roundBoundary.create(userId);
     }
 
-    private void validate(final String userId, final Round inputRound) {
+    private void validate(final String userId) {
         //TODO: Implement validations
 
     }
