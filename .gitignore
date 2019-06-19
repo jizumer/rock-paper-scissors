@@ -43,3 +43,4 @@ bin
 #Node
 node_modules
 /rock-paper-scissors-infrastructure/nbproject/
+/rock-paper-scissors-core/nbproject/
