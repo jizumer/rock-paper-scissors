@@ -11,6 +11,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import rock.paper.scissors.business.boundary.round.RoundCreateBoundary;
 import rock.paper.scissors.business.entity.Round;
+import rock.paper.scissors.common.exception.RpsException;
 import rock.paper.scissors.config.RestConfiguration;
 
 @RequestScoped
@@ -34,7 +35,8 @@ public class RoundCreateAdapter {
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
     @POST
-    public Round create(@PathParam("userId") final String userId) {
+    public Round create(@PathParam("userId") final String userId)
+            throws RpsException {
         // Validations
         validate(userId);
 

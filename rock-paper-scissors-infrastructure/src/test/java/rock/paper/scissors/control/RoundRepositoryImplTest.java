@@ -1,5 +1,6 @@
 package rock.paper.scissors.control;
 
+import rock.paper.scissors.commons.mocks.MockUtils;
 import java.util.List;
 import org.junit.After;
 import org.junit.Before;
@@ -13,8 +14,6 @@ import rock.paper.scissors.common.params.UserCriteria;
 public class RoundRepositoryImplTest {
 
     private RoundRepositoryImpl instance;
-    private String USER_ID = "mock_user_id";
-    private String USER_ID_2 = "mock_user_id_2";
 
     public RoundRepositoryImplTest() {
         //Default constructor
@@ -36,17 +35,21 @@ public class RoundRepositoryImplTest {
      */
     @Test
     public void test() {
-        assertEquals(instance.count(USER_ID), 0);
-        List<Round> emptyList = instance.findByUser(new UserCriteria(USER_ID));
-        assertTrue(emptyList != null && emptyList.size() == 0);
+        assertEquals(instance.count(MockUtils.USER_ID), 0);
+        List<Round> emptyList = 
+                instance.findByUser(new UserCriteria(MockUtils.USER_ID));
+        assertTrue(emptyList != null && emptyList.isEmpty());
         Round round
-                = new Round(Move.ROCK, Move.PAPER, Result.PLAYER_2, USER_ID);
+                = new Round(Move.ROCK, 
+                        Move.PAPER, 
+                        Result.PLAYER_2, 
+                        MockUtils.USER_ID);
         Round returnedRound = instance.create(round);
 
         assertEquals(returnedRound, round);
-        assertEquals(instance.count(USER_ID), 1);
+        assertEquals(instance.count(MockUtils.USER_ID), 1);
         List<Round> notEmptyList
-                = instance.findByUser(new UserCriteria(USER_ID));
+                = instance.findByUser(new UserCriteria(MockUtils.USER_ID));
         assertTrue(notEmptyList != null && notEmptyList.size() == 1);
 
     }
@@ -56,18 +59,18 @@ public class RoundRepositoryImplTest {
      */
     @Test
     public void testFindByUser() {
-        assertEquals(instance.count(USER_ID), 0);
+        assertEquals(instance.count(MockUtils.USER_ID), 0);
 
         //Inserting one round
         Round round
                 = new Round(Move.SCISSORS,
                         Move.PAPER,
                         Result.PLAYER_1,
-                        USER_ID);
+                        MockUtils.USER_ID);
         instance.create(round);
 
         List<Round> resultList1
-                = instance.findByUser(new UserCriteria(USER_ID));
+                = instance.findByUser(new UserCriteria(MockUtils.USER_ID));
         assertTrue(resultList1 != null && resultList1.size() == 1);
         assertEquals(resultList1.get(0), round);
 
@@ -76,11 +79,11 @@ public class RoundRepositoryImplTest {
                 = new Round(Move.SCISSORS,
                         Move.ROCK,
                         Result.PLAYER_2,
-                        USER_ID);
+                        MockUtils.USER_ID);
         instance.create(round2);
 
         List<Round> resultList2
-                = instance.findByUser(new UserCriteria(USER_ID));
+                = instance.findByUser(new UserCriteria(MockUtils.USER_ID));
         assertTrue(resultList2 != null && resultList2.size() == 2);
         assertEquals(resultList1.get(1), round2);
 
@@ -91,7 +94,7 @@ public class RoundRepositoryImplTest {
      */
     @Test
     public void testRestart() {
-        assertEquals(instance.count(USER_ID), 0);
+        assertEquals(instance.count(MockUtils.USER_ID), 0);
         assertEquals(instance.getTotals().getTotalRounds(), new Integer(0));
 
         //Inserting one round
@@ -99,18 +102,18 @@ public class RoundRepositoryImplTest {
                 = new Round(Move.SCISSORS,
                         Move.PAPER,
                         Result.PLAYER_1,
-                        USER_ID);
+                        MockUtils.USER_ID);
         instance.create(round);
 
-        assertEquals(instance.count(USER_ID), 1);
+        assertEquals(instance.count(MockUtils.USER_ID), 1);
         assertEquals(instance.getTotals().getTotalRounds(), new Integer(1));
         assertEquals(instance.getTotals().getDraws(), new Integer(0));
         assertEquals(instance.getTotals().getPlayerOneWins(), new Integer(1));
         assertEquals(instance.getTotals().getPlayerTwoWins(), new Integer(0));
 
         //This restart should not affect total indicators
-        instance.restart(USER_ID);
-        assertEquals(instance.count(USER_ID), 0);
+        instance.restart(MockUtils.USER_ID);
+        assertEquals(instance.count(MockUtils.USER_ID), 0);
         assertEquals(instance.getTotals().getTotalRounds(), new Integer(1));
         assertEquals(instance.getTotals().getDraws(), new Integer(0));
         assertEquals(instance.getTotals().getPlayerOneWins(), new Integer(1));
@@ -122,7 +125,7 @@ public class RoundRepositoryImplTest {
      */
     @Test
     public void testGetTotals() {
-        assertEquals(instance.count(USER_ID), 0);
+        assertEquals(instance.count(MockUtils.USER_ID), 0);
         assertEquals(instance.getTotals().getTotalRounds(), new Integer(0));
 
         //Inserting one round
@@ -130,7 +133,7 @@ public class RoundRepositoryImplTest {
                 = new Round(Move.SCISSORS,
                         Move.PAPER,
                         Result.PLAYER_1,
-                        USER_ID);
+                        MockUtils.USER_ID);
         instance.create(round);
 
         //Lets insert one more round for a different user
@@ -138,7 +141,7 @@ public class RoundRepositoryImplTest {
                 = new Round(Move.SCISSORS,
                         Move.ROCK,
                         Result.PLAYER_2,
-                        USER_ID_2);
+                        MockUtils.USER_ID_2);
         instance.create(round2);
 
                 //Lets insert a draw
@@ -146,16 +149,16 @@ public class RoundRepositoryImplTest {
                 = new Round(Move.SCISSORS,
                         Move.SCISSORS,
                         Result.DRAW,
-                        USER_ID_2);
+                        MockUtils.USER_ID_2);
         instance.create(round3);
         
         //Now we compare results
         List<Round> resultListUser1
-                = instance.findByUser(new UserCriteria(USER_ID));
+                = instance.findByUser(new UserCriteria(MockUtils.USER_ID));
         assertTrue(resultListUser1 != null && resultListUser1.size() == 1);
 
         List<Round> resultListUser2
-                = instance.findByUser(new UserCriteria(USER_ID_2));
+                = instance.findByUser(new UserCriteria(MockUtils.USER_ID_2));
         assertTrue(resultListUser2 != null && resultListUser2.size() == 2);
 
         assertEquals(instance.getTotals().getTotalRounds(), new Integer(3));
