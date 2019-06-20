@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.mockito.Mockito;
 import rock.paper.scissors.business.entity.Result;
 import rock.paper.scissors.business.entity.Round;
+import rock.paper.scissors.business.entity.Totals;
 import rock.paper.scissors.common.exception.RpsException;
 import rock.paper.scissors.common.params.UserCriteria;
 import rock.paper.scissors.commons.mock.MockUtilsCore;
@@ -82,4 +83,21 @@ public class RoundControlTest {
                 .getTotals();
     }
 
+    @Test
+    public void testTotalsEquals() throws RpsException {
+        Totals t1 = instance.getTotals();
+        Totals t2 = new Totals();
+
+        Assert.assertTrue(t1.equals(t2));
+        Assert.assertTrue(t1.hashCode() == t2.hashCode());
+
+        t2.addDraws(1);
+        t2.addPlayerOneWins(1);
+        t2.addPlayerTwoWins(1);
+        t2.addTotalRounds(3);
+
+        Assert.assertNotEquals(t1, t2);
+        Assert.assertTrue(t1.hashCode() != t2.hashCode());
+
+    }
 }

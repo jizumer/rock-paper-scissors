@@ -8,6 +8,7 @@ import rock.paper.scissors.business.control.RoundRepository;
 import rock.paper.scissors.business.entity.Move;
 import rock.paper.scissors.business.entity.Result;
 import rock.paper.scissors.business.entity.Round;
+import rock.paper.scissors.business.entity.Totals;
 
 /**
  *
@@ -28,7 +29,7 @@ public class MockUtilsCore {
                 return (Round) args[0];
             }
         });
-        
+        when(result.getTotals()).thenReturn(new Totals());
 
         return result;
     }
