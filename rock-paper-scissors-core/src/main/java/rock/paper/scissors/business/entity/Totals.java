@@ -1,5 +1,7 @@
 package rock.paper.scissors.business.entity;
 
+import java.util.Objects;
+
 public class Totals {
 
     private Integer totalRounds;
@@ -84,6 +86,43 @@ public class Totals {
 
     public void addDraws(int i) {
         this.draws += 1;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 17 * hash + Objects.hashCode(this.totalRounds);
+        hash = 17 * hash + Objects.hashCode(this.playerOneWins);
+        hash = 17 * hash + Objects.hashCode(this.playerTwoWins);
+        hash = 17 * hash + Objects.hashCode(this.draws);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Totals other = (Totals) obj;
+        if (!Objects.equals(this.totalRounds, other.totalRounds)) {
+            return false;
+        }
+        if (!Objects.equals(this.playerOneWins, other.playerOneWins)) {
+            return false;
+        }
+        if (!Objects.equals(this.playerTwoWins, other.playerTwoWins)) {
+            return false;
+        }
+        if (!Objects.equals(this.draws, other.draws)) {
+            return false;
+        }
+        return true;
     }
 
 }
