@@ -9,6 +9,10 @@ public class Round implements Serializable {
     private Move player1Move;
     private Move player2Move;
     private Result result;
+    
+    public Round(){
+        //Default constructor
+    }
 
     public Round(final Move p1, final Move p2,
             final Result result, final String userId) {
